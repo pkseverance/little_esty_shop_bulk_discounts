@@ -57,4 +57,23 @@ RSpec.describe 'Bulk discount index' do
         expect(page).to have_content(@merchant1.discounts.last.quantity_threshold)
         expect(page).to have_content(@merchant1.discounts.last.percent_discount)
     end
+
+    it 'has a link to create a new discount' do
+        visit merchant_discounts_path(@merchant1)
+
+        expect(page).to have_link('New Discount')
+        click_link('New Discount')
+        expect(current_path).to eq(new_merchant_discount_path(@merchant1))
+
+        expect(page).to have_field('Percent Discount')
+        expect(page).to have_field('Quantity Threshold')
+
+        fill_in('Percent Discount', with: 33.33)
+        fill_in('Quantity Threshold', with: 70)
+        click_button('Submit')
+
+        expect(current_path).to eq(merchant_discounts_path(@merchant1))
+
+        expect(page).to have_content("33.33% Off 70 or more")
+    end
 end
