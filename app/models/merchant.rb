@@ -58,4 +58,8 @@ class Merchant < ApplicationRecord
   def remove_discount(id)
     self.discounts.find(id).destroy
   end
+
+  def create_discount(percent, quantity)
+    self.discounts.create!(percent_discount: percent, quantity_threshold: quantity)
+  end
 end

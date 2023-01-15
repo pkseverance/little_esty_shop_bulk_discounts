@@ -172,5 +172,12 @@ describe Merchant do
       @merchant1.reload
       expect(@merchant1.discounts).to eq([@discount2, @discount3])
     end
+
+    it '#create_discount' do
+      expect(@merchant1.discounts).to eq([@discount1, @discount2, @discount3])
+      @discount4 = @merchant1.create_discount(60, 300)
+      @merchant1.reload
+      expect(@merchant1.discounts).to eq([@discount1, @discount2, @discount3, @discount4])
+    end
   end
 end
