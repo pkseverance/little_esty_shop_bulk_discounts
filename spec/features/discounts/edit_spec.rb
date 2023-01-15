@@ -51,11 +51,11 @@ RSpec.describe 'Merchant discount edit' do
         expect(page).to have_field('Percent Discount', with: @discount1.percent_discount)
         expect(page).to have_field('Quantity Threshold', with: @discount1.quantity_threshold)
 
-        fill_in('Percent Discount', with: 50)
+        fill_in('Percent Discount', with: 50.0)
         fill_in('Quantity Threshold', with: 30)
         click_button('Submit')
 
-        expect(current_path).to eq(merchant_discount_path(@merchant, @discount1))
-        expect(page).to have_content('50% Off 30 or more')
+        expect(current_path).to eq(merchant_discount_path(@merchant1, @discount1))
+        expect(page).to have_content('50.0% Off 30 or more')
     end
 end
