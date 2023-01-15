@@ -46,7 +46,7 @@ RSpec.describe 'Merchant discount edit' do
     end
 
     it 'has a form to edit this discount' do
-        visit edit_merchant_discount_path(@merchant, @discount1)
+        visit edit_merchant_discount_path(@merchant1, @discount1)
 
         expect(page).to have_field('Percent Discount', with: @discount1.percent_discount)
         expect(page).to have_field('Quantity Threshold', with: @discount1.quantity_threshold)
