@@ -54,4 +54,8 @@ class Merchant < ApplicationRecord
             .order("revenue desc", "invoices.created_at desc")
             .first&.created_at&.to_date
   end
+
+  def remove_discount(id)
+    self.discounts.find(id).destroy
+  end
 end

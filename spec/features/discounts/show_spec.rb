@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Bulk discount index' do
+RSpec.describe 'Merchant discount show page' do
     before :each do
         @merchant1 = Merchant.create!(name: 'Hair Care')
     
@@ -45,50 +45,17 @@ RSpec.describe 'Bulk discount index' do
         @discount3 = @merchant1.discounts.create!(quantity_threshold: 100, percent_discount: 50)
     end
 
-    it 'has all bulk discounts for a particular merchant' do
-        visit merchant_discounts_path(@merchant1)
+    describe 'When I visit my bulk discount show page' do
+        it "has the discount's quantity threshold and percent discount attributes" do
+            visit merchant_discount_path(@merchant1, @discount1)
 
-        expect(page).to have_link('20.0% Off 50 or more')
-        expect(page).to have_link('50.0% Off 100 or more')
+            expect(page).to have_content(@merchant1.discounts.first.quantity_threshold)
+            expect(page).to have_content(@merchant1.discounts.first.percent_discount)
 
-        expect(page).to have_content(@merchant1.discounts.first.quantity_threshold)
-        expect(page).to have_content(@merchant1.discounts.first.percent_discount)
+            visit merchant_discount_path(@merchant1, @discount3)
 
-        expect(page).to have_content(@merchant1.discounts.last.quantity_threshold)
-        expect(page).to have_content(@merchant1.discounts.last.percent_discount)
-    end
-
-    it 'has a link to create a new discount' do
-        visit merchant_discounts_path(@merchant1)
-
-        expect(page).to have_link('New Discount')
-        click_link('New Discount')
-        expect(current_path).to eq(new_merchant_discount_path(@merchant1))
-
-        expect(page).to have_field('Percent Discount')
-        expect(page).to have_field('Quantity Threshold')
-
-        fill_in('Percent Discount', with: 33.33)
-        fill_in('Quantity Threshold', with: 70)
-        click_button('Submit')
-
-        expect(current_path).to eq(merchant_discounts_path(@merchant1))
-
-        expect(page).to have_content("33.33% Off 70 or more")
-    end
-
-    it 'has a link next to each discount to delete it' do
-        visit merchant_discounts_path(@merchant1)
-
-        expect(page).to have_content('20.0% Off 50 or more')
-        expect(page).to have_content('50.0% Off 100 or more')
-
-        expect(page).to have_button('Delete 20.0% Off 50 or more')
-
-        click_button('Delete 20.0% Off 50 or more')
-        expect(current_path).to eq(merchant_discounts_path(@merchant1))
-
-        expect(page).to_not have_content('20.0% Off 50 or more')
-        expect(page).to have_content('50.0% Off 100 or more')
+            expect(page).to have_content(@merchant1.discounts.last.quantity_threshold)
+            expect(page).to have_content(@merchant1.discounts.last.percent_discount)
+        end
     end
 end
