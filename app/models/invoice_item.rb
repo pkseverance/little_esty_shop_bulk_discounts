@@ -15,7 +15,7 @@ class InvoiceItem < ApplicationRecord
     Invoice.order(created_at: :asc).find(invoice_ids)
   end
 
-  def best_discount
+  def applied_discount
     self.item.merchant.discounts.where('quantity_threshold <= ?', quantity).order('percent_discount DESC').first
   end
 end
