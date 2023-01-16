@@ -56,18 +56,18 @@ RSpec.describe InvoiceItem, type: :model do
       @discount1 = @m1.discounts.create!(quantity_threshold: 10, percent_discount: 20.0)
       @discount2 = @m1.discounts.create!(quantity_threshold: 3, percent_discount: 10.0)
     end
-    it '#best_discount' do
-      expect(@ii_1.best_discount).to eq(@discount1)
-      expect(@ii_2.best_discount).to eq(@discount2)
-      expect(@ii_3.best_discount).to eq(@discount2)
+    it '#applied_discount' do
+      expect(@ii_1.applied_discount).to eq(@discount1)
+      expect(@ii_2.applied_discount).to eq(@discount2)
+      expect(@ii_3.applied_discount).to eq(@discount2)
 
       @discount3 = @m1.discounts.create!(quantity_threshold: 5, percent_discount: 50)
 
-      expect(@ii_1.best_discount).to eq(@discount3)
-      expect(@ii_2.best_discount).to eq(@discount3)
-      expect(@ii_3.best_discount).to eq(@discount2)
+      expect(@ii_1.applied_discount).to eq(@discount3)
+      expect(@ii_2.applied_discount).to eq(@discount3)
+      expect(@ii_3.applied_discount).to eq(@discount2)
 
-      expect(@ii_4.best_discount).to eq(nil)
+      expect(@ii_4.applied_discount).to eq(nil)
     end
   end
 end
