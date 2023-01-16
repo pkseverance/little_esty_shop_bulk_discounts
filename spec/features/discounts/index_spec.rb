@@ -80,15 +80,22 @@ RSpec.describe 'Bulk discount index' do
     it 'has a link next to each discount to delete it' do
         visit merchant_discounts_path(@merchant1)
 
-        expect(page).to have_content('20.0% Off 50 or more')
-        expect(page).to have_content('50.0% Off 100 or more')
+        within('div#0') do
+            expect(page).to have_content('20.0% Off 50 or more')
+            expect(page).to have_link('Delete Discount')
+            click_link('Delete Discount')
+        end
 
-        expect(page).to have_button('Delete 20.0% Off 50 or more')
-
-        click_button('Delete 20.0% Off 50 or more')
         expect(current_path).to eq(merchant_discounts_path(@merchant1))
-
         expect(page).to_not have_content('20.0% Off 50 or more')
-        expect(page).to have_content('50.0% Off 100 or more')
+
+        within('div#1') do
+            expect(page).to have_content('50.0% Off 100 or more')
+            expect(page).to have_link('Delete Discount')
+            click_link('Delete Discount')
+        end
+
+        expect(current_path).to eq(merchant_discounts_path(@merchant1))
+        expect(page).to_not have_content('50.0% Off 100 or more')
     end
 end

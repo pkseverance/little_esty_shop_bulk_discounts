@@ -2,9 +2,9 @@
 <%= link_to 'New Discount', new_merchant_discount_path(@merchant) %>
 
 
-<% @discounts.each do |discount| %>
-
-    <p><%= link_to "#{discount.percent_discount}% Off #{discount.quantity_threshold} or more", merchant_discount_path(@merchant, discount) %></p>
-    <p><%= button_to "Delete #{discount.percent_discount}% Off #{discount.quantity_threshold} or more", merchant_discount_path(@merchant, discount), method: :delete %></p>
-
+<% @discounts.each_with_index do |discount, i| %>
+    <div id=<%="#{i}"%>>
+        <p><%= link_to "#{discount.percent_discount}% Off #{discount.quantity_threshold} or more", merchant_discount_path(@merchant, discount) %> 
+        <%= link_to "Delete Discount", merchant_discount_path(@merchant, discount), method: :delete %></p>
+    </div>
 <% end %>
