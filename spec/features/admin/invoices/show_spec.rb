@@ -2,6 +2,15 @@ require 'rails_helper'
 
 describe 'Admin Invoices Index Page' do
   before :each do
+
+    InvoiceItem.destroy_all
+    Item.destroy_all
+    Discount.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+    
     @m1 = Merchant.create!(name: 'Merchant 1')
 
     @c1 = Customer.create!(first_name: 'Yo', last_name: 'Yoz', address: '123 Heyyo', city: 'Whoville', state: 'CO', zip: 12345)
@@ -16,6 +25,8 @@ describe 'Admin Invoices Index Page' do
     @ii_1 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_1.id, quantity: 12, unit_price: 2, status: 0)
     @ii_2 = InvoiceItem.create!(invoice_id: @i1.id, item_id: @item_2.id, quantity: 6, unit_price: 1, status: 1)
     @ii_3 = InvoiceItem.create!(invoice_id: @i2.id, item_id: @item_2.id, quantity: 87, unit_price: 12, status: 2)
+
+    @d1 = @m1.discounts.create!(quantity_threshold: 8, percent_discount: 50)
 
     visit admin_invoice_path(@i1)
   end
@@ -57,6 +68,11 @@ describe 'Admin Invoices Index Page' do
     expect(page).to have_content("Total Revenue: $#{@i1.total_revenue}")
 
     expect(page).to_not have_content(@i2.total_revenue)
+  end
+
+  it 'shows the total discounted revenue for this invoice' do
+
+    expect(page).to have_content(@i1.total_discounted_revenue)
   end
 
   it 'should have status as a select field that updates the invoices status' do
