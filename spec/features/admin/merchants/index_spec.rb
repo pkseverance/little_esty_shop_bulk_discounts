@@ -2,6 +2,15 @@ require 'rails_helper'
 
 describe 'Admin Merchant Index' do
   before :each do
+    
+    InvoiceItem.destroy_all
+    Item.destroy_all
+    Discount.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+
     @m1 = Merchant.create!(name: 'Merchant 1')
     @m2 = Merchant.create!(name: 'Merchant 2')
     @m3 = Merchant.create!(name: 'Merchant 3', status: 1)

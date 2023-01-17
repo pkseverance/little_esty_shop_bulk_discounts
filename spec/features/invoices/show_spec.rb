@@ -2,6 +2,15 @@ require 'rails_helper'
 
 RSpec.describe 'invoices show' do
   before :each do
+    
+    InvoiceItem.destroy_all
+    Item.destroy_all
+    Discount.destroy_all
+    Merchant.destroy_all
+    Customer.destroy_all
+    Transaction.destroy_all
+    Invoice.destroy_all
+
     @merchant1 = Merchant.create!(name: 'Hair Care')
     @merchant2 = Merchant.create!(name: 'Jewelry')
 

@@ -13,6 +13,14 @@ RSpec.describe Invoice, type: :model do
   end
   describe "instance methods" do
     before(:each) do
+      InvoiceItem.destroy_all
+      Item.destroy_all
+      Discount.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
+      
       @merchant1 = Merchant.create!(name: 'Hair Care')
       @item_1 = Item.create!(name: "Shampoo", description: "This washes your hair", unit_price: 10, merchant_id: @merchant1.id, status: 1)
       @item_8 = Item.create!(name: "Butterfly Clip", description: "This holds up your hair but in a clip", unit_price: 5, merchant_id: @merchant1.id)

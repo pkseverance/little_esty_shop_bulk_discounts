@@ -15,6 +15,15 @@ RSpec.describe InvoiceItem, type: :model do
 
   describe "class methods" do
     before(:each) do
+
+      InvoiceItem.destroy_all
+      Item.destroy_all
+      Discount.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
+      
       @m1 = Merchant.create!(name: 'Merchant 1')
       @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
       @c2 = Customer.create!(first_name: 'Frodo', last_name: 'Baggins')
@@ -42,6 +51,15 @@ RSpec.describe InvoiceItem, type: :model do
 
   describe "instance methods" do
     before(:each) do
+      
+      InvoiceItem.destroy_all
+      Item.destroy_all
+      Discount.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
+
       @m1 = Merchant.create!(name: 'Merchant 1')
       @c1 = Customer.create!(first_name: 'Bilbo', last_name: 'Baggins')
       @item_1 = Item.create!(name: 'Shampoo', description: 'This washes your hair', unit_price: 10, merchant_id: @m1.id)

@@ -7,6 +7,15 @@ RSpec.describe Discount do
 
     describe 'relationships' do
         before :each do
+
+            InvoiceItem.destroy_all
+            Item.destroy_all
+            Discount.destroy_all
+            Merchant.destroy_all
+            Customer.destroy_all
+            Transaction.destroy_all
+            Invoice.destroy_all
+            
             @merchant1 = Merchant.create!(name: 'Hair Care')
         
             @customer_1 = Customer.create!(first_name: 'Joey', last_name: 'Smith')

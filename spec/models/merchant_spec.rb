@@ -16,6 +16,14 @@ describe Merchant do
 
   describe "class methods" do
     before :each do
+
+      InvoiceItem.destroy_all
+      Item.destroy_all
+      Discount.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
       
       @merchant1 = Merchant.create!(name: 'Hair Care')
       @merchant2 = Merchant.create!(name: 'Jewelry')
@@ -93,6 +101,14 @@ describe Merchant do
 
   describe "instance methods" do
     before :each do
+
+      InvoiceItem.destroy_all
+      Item.destroy_all
+      Discount.destroy_all
+      Merchant.destroy_all
+      Customer.destroy_all
+      Transaction.destroy_all
+      Invoice.destroy_all
 
       @merchant1 = Merchant.create!(name: 'Hair Care')
       @merchant2 = Merchant.create!(name: 'Jewelry')
