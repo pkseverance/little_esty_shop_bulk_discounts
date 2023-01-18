@@ -98,4 +98,16 @@ RSpec.describe 'Bulk discount index' do
         expect(current_path).to eq(merchant_discounts_path(@merchant1))
         expect(page).to_not have_content('50.0% Off 100 or more')
     end
+
+    it 'has a section with the name and date of the next three upcoming US holidays' do
+        visit merchant_discounts_path(@merchant1)
+
+        within('section#upcoming_holidays') do
+            expect(page).to have_content('Presidents Day')
+            expect(page).to have_content('2023-02-20')
+
+            expect(page).to have_content('Memorial Day')
+            expect(page).to have_content('2023-05-29')
+        end
+    end
 end
