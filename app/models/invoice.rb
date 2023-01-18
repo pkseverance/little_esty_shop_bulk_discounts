@@ -16,11 +16,23 @@ class Invoice < ApplicationRecord
   end
 
   def total_discounted_revenue
-    a = self.invoice_items.joins(item: [merchant: :discounts]).where('quantity_threshold <= quantity').group(:id).select('invoice_items.*, (100 - max(percent_discount)) * 0.01 as best_discount')
 
-    discounted_items_price = a.map{|row| row.quantity * row.unit_price * row.best_discount}.sum
-    undiscounted_items_price = self.invoice_items.joins(item: [merchant: :discounts]).where('? > quantity', self.discounts.minimum(:quantity_threshold)).group(:id).sum('quantity * items.unit_price')
+    discounted_price = self.invoice_items
+      .joins(item: [merchant: :discounts])
+      .where('quantity_threshold <= quantity')
+      .group(:id)
+      .select('invoice_items.*, (100 - max(percent_discount)) * 0.01 as best_discount')
+      .map{|row| row.quantity * row.unit_price * row.best_discount}
+      .sum
 
-    discounted_items_price + undiscounted_items_price.values.sum
+    price = self.invoice_items
+      .joins(item: [merchant: :discounts])
+      .where('? > quantity', self.discounts.minimum(:quantity_threshold))
+      .group(:id)
+      .sum('quantity * items.unit_price')
+      .values
+      .sum
+
+    discounted_price + price
   end
 end
