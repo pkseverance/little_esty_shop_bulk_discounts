@@ -1,6 +1,6 @@
 <h1><%= @merchant.name %>'s Discounts</h1>
-<%= link_to 'New Discount', new_merchant_discount_path(@merchant) %>
 
+<%= link_to 'New Discount', new_merchant_discount_path(@merchant) %>
 
 <% @discounts.each_with_index do |discount, i| %>
     <div id=<%="#{i}"%>>
@@ -8,3 +8,12 @@
         <%= link_to "Delete Discount", merchant_discount_path(@merchant, discount), method: :delete %></p>
     </div>
 <% end %>
+
+<section id='upcoming_holidays'>
+    <h2>Upcoming Holidays</h2>
+
+    <% @holidays.each do |holiday| %>
+        <p><%= holiday.name %></p>
+        <p><%= holiday.date %></p>
+    <% end %>
+</section>
